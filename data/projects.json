@@ -1,0 +1,28 @@
+{
+  "projects": [
+    {
+      "id": "simple-port-scanner",
+      "name": "Simple Port Scanner",
+      "description": "Basic Python script to scan for open ports on a target system.",
+      "github": "https://github.com/ronaldmat/simple-port-scanner",
+      "external": true,
+      "featured": true
+    },
+    {
+      "id": "password-strength-checker",
+      "name": "Password Strength Checker",
+      "description": "Web app that evaluates password security and provides improvement suggestions.",
+      "github": "https://github.com/ronaldmat/password-strength-checker",
+      "external": true,
+      "featured": true
+    },
+    {
+      "id": "hash-identifier",
+      "name": "Hash Identifier",
+      "description": "Tool to identify different types of password hashes for learning purposes.",
+      "github": "https://github.com/ronaldmat/hash-identifier",
+      "external": true,
+      "featured": false
+    }
+  ]
+}

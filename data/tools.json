@@ -1,0 +1,64 @@
+{
+  "categories": [
+    {
+      "name": "Network Learning",
+      "tools": [
+        {
+          "name": "Basic Port Scanner",
+          "description": "Simple Python script to understand how port scanning works.",
+          "github": "https://github.com/ronaldmat/basic-port-scanner"
+        },
+        {
+          "name": "Network Info Gatherer",
+          "description": "Educational tool to learn about network reconnaissance.",
+          "github": "https://github.com/ronaldmat/network-info-gatherer"
+        }
+      ]
+    },
+    {
+      "name": "Web Security",
+      "tools": [
+        {
+          "name": "SQL Injection Tester",
+          "description": "Learning tool to understand SQL injection vulnerabilities.",
+          "github": "https://github.com/ronaldmat/sql-injection-tester"
+        },
+        {
+          "name": "XSS Detector",
+          "description": "Simple script to identify potential XSS vulnerabilities.",
+          "github": "https://github.com/ronaldmat/xss-detector"
+        },
+        {
+          "name": "Security Headers Checker",
+          "description": "Tool to check if websites implement security headers.",
+          "github": "https://github.com/ronaldmat/security-headers-checker"
+        },
+        {
+          "name": "Directory Bruteforcer",
+          "description": "Educational directory discovery tool for learning purposes.",
+          "github": "https://github.com/ronaldmat/directory-bruteforcer"
+        }
+      ]
+    },
+    {
+      "name": "Cryptography",
+      "tools": [
+        {
+          "name": "Hash Identifier",
+          "description": "Tool to identify different types of password hashes.",
+          "github": "https://github.com/ronaldmat/hash-identifier"
+        },
+        {
+          "name": "Caesar Cipher Tool",
+          "description": "Educational implementation of the Caesar cipher.",
+          "github": "https://github.com/ronaldmat/caesar-cipher"
+        },
+        {
+          "name": "Password Generator",
+          "description": "Secure password generator with customizable options.",
+          "github": "https://github.com/ronaldmat/password-generator"
+        }
+      ]
+    }
+  ]
+}
