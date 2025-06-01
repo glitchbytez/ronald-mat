@@ -80,6 +80,18 @@ export default function Component() {
                     </p>
                   </div>
                 ))}
+
+                <div>
+                  <Link
+                    href="/projects"
+                    className="text-gray-900 dark:text-gray-100 font-medium hover:text-gray-600 dark:hover:text-gray-400 transition-colors text-sm"
+                  >
+                    All projects
+                  </Link>
+                  <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed mt-1">
+                    Security tools, web applications, and learning projects.
+                  </p>
+                </div>
               </div>
             </div>
 

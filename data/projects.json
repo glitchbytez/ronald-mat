@@ -23,6 +23,46 @@
       "github": "https://github.com/ronaldmat/hash-identifier",
       "external": true,
       "featured": false
+    },
+    {
+      "id": "vulnerability-scanner",
+      "name": "Basic Vulnerability Scanner",
+      "description": "Educational web vulnerability scanner to learn about common security issues.",
+      "github": "https://github.com/ronaldmat/vulnerability-scanner",
+      "external": true,
+      "featured": false
+    },
+    {
+      "id": "network-monitor",
+      "name": "Network Traffic Monitor",
+      "description": "Simple tool to monitor and analyze network traffic for learning purposes.",
+      "github": "https://github.com/ronaldmat/network-monitor",
+      "external": true,
+      "featured": false
+    },
+    {
+      "id": "secure-chat-app",
+      "name": "Secure Chat Application",
+      "description": "End-to-end encrypted chat application built with modern web technologies.",
+      "github": "https://github.com/ronaldmat/secure-chat-app",
+      "external": true,
+      "featured": false
+    },
+    {
+      "id": "ctf-writeups",
+      "name": "CTF Writeups Collection",
+      "description": "Documentation of my solutions to various Capture The Flag challenges.",
+      "github": "https://github.com/ronaldmat/ctf-writeups",
+      "external": true,
+      "featured": false
+    },
+    {
+      "id": "security-dashboard",
+      "name": "Security Monitoring Dashboard",
+      "description": "Web dashboard for monitoring security events and system health.",
+      "github": "https://github.com/ronaldmat/security-dashboard",
+      "external": true,
+      "featured": false
     }
   ]
 }
