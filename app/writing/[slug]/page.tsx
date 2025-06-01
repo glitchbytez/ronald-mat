@@ -10,8 +10,11 @@ interface ArticlePageProps {
   }
 }
 
-export default function ArticlePage({ params }: ArticlePageProps) {
-  const article = articlesData.articles.find((a) => a.slug === params.slug)
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  // Ensure params are properly awaited in async component
+  const { slug } = await Promise.resolve(params);
+  
+  const article = articlesData.articles.find((a) => a.slug === slug)
 
   if (!article) {
     notFound()
