@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Shield -->
+  <path d="M256 32L32 128V224C32 354.5 133.5 473.5 256 512C378.5 473.5 480 354.5 480 224V128L256 32Z" fill="#2563EB" />
+  <path d="M256 72L80 152V224C80 332.5 164.5 432.5 256 464C347.5 432.5 432 332.5 432 224V152L256 72Z" fill="#1E40AF" />
+  
+  <!-- Code Symbol -->
+  <path d="M192 208L144 256L192 304M320 208L368 256L320 304" stroke="white" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M272 176L240 336" stroke="white" stroke-width="24" stroke-linecap="round"/>
+</svg>
