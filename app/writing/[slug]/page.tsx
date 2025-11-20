@@ -35,7 +35,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </h2>,
         )
       } else if (line.startsWith("```")) {
-        // Find the closing \`\`\`
+        // Find the closing ```
         let codeContent = ""
         let j = i + 1
         while (j < lines.length && !lines[j].startsWith("```")) {
@@ -49,7 +49,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </pre>
           </div>,
         )
-        i = j // Skip to after the closing \`\`\`
+        i = j // Skip to after the closing ```
       } else if (line.startsWith("- ")) {
         // Handle list items
         const listItems = []
@@ -89,63 +89,33 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-white selection:text-black flex flex-col">
+    <main className="flex flex-col px-6 max-w-3xl mx-auto w-full">
 
-      {/* Navigation / Header */}
-      <header className="fixed top-0 left-0 right-0 p-6 flex justify-between items-center z-50">
-        <div className="text-xl font-bold tracking-tighter">
-          <Link href="/" className="hover:text-muted-foreground transition-colors">
-            <span className="hidden sm:inline">RONALD MAT</span>
-            <span className="sm:hidden">RM</span>
-          </Link>
-        </div>
-        <nav className="flex gap-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-          <Link href="/projects" className="hover:text-foreground transition-colors">Projects</Link>
-          <Link href="/writing" className="text-foreground">Writing</Link>
-          <Link href="mailto:ronald@mat.dev" className="hover:text-foreground transition-colors">Contact</Link>
-        </nav>
-      </header>
-
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col px-6 py-24 max-w-3xl mx-auto w-full">
-
-        <article>
-          {/* Title and Meta */}
-          <div className="mb-12 text-center">
-            <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">
-              {new Date(article.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight">{article.title}</h1>
+      <article>
+        {/* Title and Meta */}
+        <div className="mb-12 text-center">
+          <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">
+            {new Date(article.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </div>
-
-          {/* Content */}
-          <div className="prose prose-invert max-w-none">
-            {renderContent(article.content)}
-          </div>
-        </article>
-
-        <div className="mt-16 pt-8 border-t border-border flex justify-center">
-          <Link href="/writing" className="font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">
-            ← Back to Writing
-          </Link>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight">{article.title}</h1>
         </div>
 
-      </main>
+        {/* Content */}
+        <div className="prose prose-invert max-w-none">
+          {renderContent(article.content)}
+        </div>
+      </article>
 
-      {/* Footer */}
-      <footer className="p-6 flex justify-between items-center text-xs text-muted-foreground font-mono uppercase tracking-widest">
-        <div>
-          &copy; 2025 Ronald Mat
-        </div>
-        <div className="flex gap-4">
-          <Link href="https://github.com" className="hover:text-foreground transition-colors">GitHub</Link>
-          <Link href="https://twitter.com" className="hover:text-foreground transition-colors">Twitter</Link>
-        </div>
-      </footer>
-    </div>
+      <div className="mt-16 pt-8 border-t border-border flex justify-center">
+        <Link href="/writing" className="font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">
+          ← Back to Writing
+        </Link>
+      </div>
+
+    </main>
   )
 }

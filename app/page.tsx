@@ -1,119 +1,90 @@
 import Link from "next/link"
-import articlesData from "@/data/articles.json"
 import projectsData from "@/data/projects.json"
+import articlesData from "@/data/articles.json"
 
-export default function Component() {
-  // Get featured article (latest 1)
-  const featuredArticle = articlesData.articles
+export default function Home() {
+  const featuredProjects = projectsData.projects.filter((p) => p.featured)
+  const recentArticles = articlesData.articles
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 1)
-
-  // Get featured projects
-  const featuredProjects = projectsData.projects.filter((project) => project.featured)
+    .slice(0, 5)
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-white selection:text-black flex flex-col">
+    <main className="flex flex-col px-6 max-w-4xl mx-auto w-full justify-center">
 
-      {/* Navigation / Header - Minimal like x.ai */}
-      <header className="fixed top-0 left-0 right-0 p-6 flex justify-between items-center z-50">
-        <div className="text-xl font-bold tracking-tighter">
-          <span className="hidden sm:inline">RONALD MAT</span>
-          <span className="sm:hidden">RM</span>
-        </div>
-        <nav className="flex gap-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-          <Link href="/projects" className="hover:text-foreground transition-colors">Projects</Link>
-          <Link href="/writing" className="hover:text-foreground transition-colors">Writing</Link>
-          <Link href="mailto:ronald@mat.dev" className="hover:text-foreground transition-colors">Contact</Link>
-        </nav>
-      </header>
+      {/* Hero Section */}
+      <section className="mb-24 pt-12">
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 leading-tight">
+          BUILDING <br />
+          SECURE <br />
+          SYSTEMS.
+        </h1>
+        <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
+          Junior software developer with a focus on cybersecurity, network analysis, and building resilient web applications.
+        </p>
+      </section>
 
-      {/* Main Content - Centered */}
-      <main className="flex-1 flex flex-col justify-center items-center px-6 py-24 max-w-4xl mx-auto w-full">
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-24">
 
-        {/* Hero Section */}
-        <div className="mb-24 text-center space-y-6 max-w-2xl">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
-            SECURING DIGITAL <br /> FRONTIERS.
-          </h1>
-          <p className="text-muted-foreground text-lg md:text-xl max-w-lg mx-auto leading-relaxed">
-            Junior software developer exploring cybersecurity, networking, and ethical hacking.
-          </p>
-        </div>
-
-        {/* Grid Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full">
-
-          {/* Projects Column */}
-          <div className="space-y-8">
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Featured Projects</h2>
-              <Link href="/projects" className="font-mono text-xs uppercase tracking-widest hover:text-muted-foreground transition-colors">→</Link>
+        {/* Column 1: Building (Now) */}
+        <div className="md:col-span-4 space-y-8">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground border-b border-border pb-2">Building</h2>
+          <div className="space-y-4">
+            <div className="group">
+              <h3 className="font-medium">Network Scanner</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                Rust-based port scanner with service detection.
+              </p>
             </div>
-            <div className="space-y-6">
-              {featuredProjects.map((project) => (
-                <div key={project.id} className="group">
-                  <Link href={project.github} target="_blank" rel="noopener noreferrer" className="block space-y-2">
-                    <div className="flex justify-between items-baseline">
-                      <h3 className="text-lg font-medium group-hover:underline decoration-1 underline-offset-4">{project.name}</h3>
-                      {project.external && <span className="text-xs text-muted-foreground font-mono">EXTERNAL</span>}
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                      {project.description}
-                    </p>
-                  </Link>
-                </div>
-              ))}
+            <div className="group">
+              <h3 className="font-medium">Secure Chat</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                E2E encrypted messaging app using Signal protocol.
+              </p>
             </div>
           </div>
+        </div>
 
-          {/* Writing Column */}
-          <div className="space-y-8">
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Latest Writing</h2>
-              <Link href="/writing" className="font-mono text-xs uppercase tracking-widest hover:text-muted-foreground transition-colors">→</Link>
-            </div>
-            <div className="space-y-6">
-              {featuredArticle.map((article) => (
-                <div key={article.id} className="group">
-                  <Link href={`/writing/${article.slug}`} className="block space-y-2">
-                    <div className="flex justify-between items-baseline">
-                      <h3 className="text-lg font-medium group-hover:underline decoration-1 underline-offset-4">{article.title}</h3>
-                      <span className="text-xs text-muted-foreground font-mono">{new Date(article.date).getFullYear()}</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                      {article.description}
-                    </p>
-                  </Link>
-                </div>
-              ))}
-
-              {/* Static "Now" item as a writing piece equivalent */}
-              <div className="group">
-                <div className="block space-y-2">
-                  <div className="flex justify-between items-baseline">
-                    <h3 className="text-lg font-medium text-muted-foreground">Currently Learning</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Working through TryHackMe rooms and studying for security certifications.
-                  </p>
-                </div>
-              </div>
-            </div>
+        {/* Column 2: Projects */}
+        <div className="md:col-span-4 space-y-8">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground border-b border-border pb-2">Selected Work</h2>
+          <div className="space-y-4">
+            {featuredProjects.map((project) => (
+              <Link key={project.id} href={project.github} target="_blank" className="block group">
+                <h3 className="font-medium group-hover:underline decoration-1 underline-offset-4">{project.name}</h3>
+                <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+                  {project.description}
+                </p>
+              </Link>
+            ))}
+            <Link href="/projects" className="inline-block text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground mt-2">
+              View All Projects →
+            </Link>
           </div>
+        </div>
 
+        {/* Column 3: Writing */}
+        <div className="md:col-span-4 space-y-8">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground border-b border-border pb-2">Recent Writing</h2>
+          <div className="space-y-4">
+            {recentArticles.map((article) => (
+              <Link key={article.id} href={`/writing/${article.slug}`} className="block group">
+                <div className="flex justify-between items-baseline">
+                  <h3 className="font-medium group-hover:underline decoration-1 underline-offset-4 truncate pr-4">{article.title}</h3>
+                  <span className="text-xs text-muted-foreground font-mono shrink-0">
+                    {new Date(article.date).getFullYear()}
+                  </span>
+                </div>
+              </Link>
+            ))}
+            <Link href="/writing" className="inline-block text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground mt-2">
+              Read All Articles →
+            </Link>
+          </div>
         </div>
-      </main>
 
-      {/* Footer */}
-      <footer className="p-6 flex justify-between items-center text-xs text-muted-foreground font-mono uppercase tracking-widest">
-        <div>
-          &copy; 2025 Ronald Mat
-        </div>
-        <div className="flex gap-4">
-          <Link href="https://github.com" className="hover:text-foreground transition-colors">GitHub</Link>
-          <Link href="https://twitter.com" className="hover:text-foreground transition-colors">Twitter</Link>
-        </div>
-      </footer>
-    </div>
+      </div>
+
+    </main>
   )
 }
