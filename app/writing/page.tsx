@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { ThemeToggle } from "@/components/theme-toggle"
 import articlesData from "@/data/articles.json"
 
 export default function WritingPage() {
@@ -20,60 +19,70 @@ export default function WritingPage() {
   const sortedYears = Object.keys(articlesByYear).sort((a, b) => Number.parseInt(b) - Number.parseInt(a))
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
-      {/* Theme Toggle - Fixed Position */}
-      <div className="fixed top-6 right-6 z-50">
-        <ThemeToggle />
-      </div>
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-white selection:text-black flex flex-col">
 
-      <div className="max-w-2xl mx-auto px-6 py-16">
-        {/* Header */}
-        <header className="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 mb-10 py-5 -mx-6 px-6">
-          <div className="flex items-center justify-between">
-            <Link
-              href="/"
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors text-xs"
-            >
-              ← Index
-            </Link>
-            <h1 className="text-base font-medium text-gray-900 dark:text-gray-100">Writing</h1>
-            <div></div> {/* Spacer for center alignment */}
-          </div>
-        </header>
+      {/* Navigation / Header */}
+      <header className="fixed top-0 left-0 right-0 p-6 flex justify-between items-center z-50">
+        <div className="text-xl font-bold tracking-tighter">
+          <Link href="/" className="hover:text-muted-foreground transition-colors">
+            <span className="hidden sm:inline">RONALD MAT</span>
+            <span className="sm:hidden">RM</span>
+          </Link>
+        </div>
+        <nav className="flex gap-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          <Link href="/projects" className="hover:text-foreground transition-colors">Projects</Link>
+          <Link href="/writing" className="text-foreground">Writing</Link>
+          <Link href="mailto:ronald@mat.dev" className="hover:text-foreground transition-colors">Contact</Link>
+        </nav>
+      </header>
 
-        {/* Writing List */}
-        <div className="space-y-10">
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col px-6 py-24 max-w-4xl mx-auto w-full">
+
+        <div className="mb-16">
+          <h1 className="text-4xl font-bold tracking-tight mb-4">WRITING</h1>
+          <p className="text-muted-foreground text-lg max-w-2xl">
+            Thoughts on security, software development, and learning.
+          </p>
+        </div>
+
+        <div className="space-y-16">
           {sortedYears.map((year) => (
-            <section key={year}>
-              <div className="flex">
-                <div className="w-14 flex-shrink-0">
-                  <h2 className="text-gray-400 dark:text-gray-500 text-xs">{year}</h2>
-                </div>
-                <div className="flex-1 space-y-3">
-                  {articlesByYear[year]
-                    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                    .map((article) => (
-                      <div key={article.id} className="flex justify-between items-start">
-                        <Link
-                          href={`/writing/${article.slug}`}
-                          className="text-gray-900 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-400 transition-colors text-sm"
-                        >
-                          {article.title}
-                        </Link>
-                        <span className="text-gray-400 dark:text-gray-500 text-xs ml-4">
+            <section key={year} className="space-y-8">
+              <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground border-b border-border pb-2">{year}</h2>
+              <div className="grid gap-6">
+                {articlesByYear[year]
+                  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                  .map((article) => (
+                    <div key={article.id} className="group">
+                      <Link href={`/writing/${article.slug}`} className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-8">
+                        <h3 className="text-lg font-medium group-hover:underline decoration-1 underline-offset-4 shrink-0">{article.title}</h3>
+                        <span className="text-xs text-muted-foreground font-mono">
                           {new Date(article.date).toLocaleDateString("en-US", {
-                            month: "2-digit",
-                            day: "2-digit",
+                            month: "long",
+                            day: "numeric",
                           })}
                         </span>
-                      </div>
-                    ))}
-                </div>
+                      </Link>
+                    </div>
+                  ))}
               </div>
             </section>
           ))}
         </div>
-      </div>
+
+      </main>
+
+      {/* Footer */}
+      <footer className="p-6 flex justify-between items-center text-xs text-muted-foreground font-mono uppercase tracking-widest">
+        <div>
+          &copy; 2025 Ronald Mat
+        </div>
+        <div className="flex gap-4">
+          <Link href="https://github.com" className="hover:text-foreground transition-colors">GitHub</Link>
+          <Link href="https://twitter.com" className="hover:text-foreground transition-colors">Twitter</Link>
+        </div>
+      </footer>
     </div>
   )
 }

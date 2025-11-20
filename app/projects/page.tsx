@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { ThemeToggle } from "@/components/theme-toggle"
 import projectsData from "@/data/projects.json"
 
 export default function ProjectsPage() {
@@ -8,126 +7,86 @@ export default function ProjectsPage() {
   const otherProjects = projectsData.projects.filter((project) => !project.featured)
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
-      {/* Theme Toggle - Fixed Position */}
-      <div className="fixed top-6 right-6 z-50">
-        <ThemeToggle />
-      </div>
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-white selection:text-black flex flex-col">
 
-      <div className="max-w-2xl mx-auto px-6 py-16">
-        {/* Header */}
-        <header className="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 mb-10 py-5 -mx-6 px-6">
-          <div className="flex items-center justify-between mb-5">
-            <Link
-              href="/"
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors text-xs"
-            >
-              ← Index
-            </Link>
-            <div className="text-center">
-              <h1 className="text-base font-medium text-gray-900 dark:text-gray-100">Projects</h1>
-              <p className="text-gray-600 dark:text-gray-400 text-xs mt-1">
-                Security tools, web applications, and learning projects.
-              </p>
-            </div>
-            <div></div> {/* Spacer for center alignment */}
-          </div>
-        </header>
+      {/* Navigation / Header */}
+      <header className="fixed top-0 left-0 right-0 p-6 flex justify-between items-center z-50">
+        <div className="text-xl font-bold tracking-tighter">
+          <Link href="/" className="hover:text-muted-foreground transition-colors">
+            <span className="hidden sm:inline">RONALD MAT</span>
+            <span className="sm:hidden">RM</span>
+          </Link>
+        </div>
+        <nav className="flex gap-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          <Link href="/projects" className="text-foreground">Projects</Link>
+          <Link href="/writing" className="hover:text-foreground transition-colors">Writing</Link>
+          <Link href="mailto:ronald@mat.dev" className="hover:text-foreground transition-colors">Contact</Link>
+        </nav>
+      </header>
 
-        {/* Main Content Grid */}
-        <div className="grid md:grid-cols-3 gap-10 mb-14">
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col px-6 py-24 max-w-4xl mx-auto w-full">
+
+        <div className="mb-16">
+          <h1 className="text-4xl font-bold tracking-tight mb-4">PROJECTS</h1>
+          <p className="text-muted-foreground text-lg max-w-2xl">
+            Security tools, web applications, and experiments in code.
+          </p>
+        </div>
+
+        <div className="space-y-16">
           {/* Featured Projects */}
           {featuredProjects.length > 0 && (
-            <div>
-              <h2 className="text-gray-700 dark:text-gray-300 font-medium mb-5 text-sm">Featured</h2>
-              <div className="space-y-6">
+            <section className="space-y-8">
+              <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground border-b border-border pb-2">Featured</h2>
+              <div className="grid gap-8">
                 {featuredProjects.map((project) => (
-                  <div key={project.id}>
-                    <Link
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-900 dark:text-gray-100 font-medium hover:text-gray-600 dark:hover:text-gray-400 transition-colors text-sm"
-                    >
-                      {project.name} →
+                  <div key={project.id} className="group">
+                    <Link href={project.github} target="_blank" rel="noopener noreferrer" className="block space-y-3">
+                      <div className="flex justify-between items-baseline">
+                        <h3 className="text-xl font-medium group-hover:underline decoration-1 underline-offset-4">{project.name}</h3>
+                        <span className="text-xs text-muted-foreground font-mono">FEATURED</span>
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed max-w-2xl">
+                        {project.description}
+                      </p>
                     </Link>
-                    <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed mt-1">
-                      {project.description}
-                    </p>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
           )}
 
-          {/* Security Tools */}
-          <div>
-            <h2 className="text-gray-700 dark:text-gray-300 font-medium mb-5 text-sm">Security Tools</h2>
-            <div className="space-y-6">
-              {otherProjects
-                .filter(
-                  (project) =>
-                    project.name.toLowerCase().includes("scanner") ||
-                    project.name.toLowerCase().includes("hash") ||
-                    project.name.toLowerCase().includes("security"),
-                )
-                .map((project) => (
-                  <div key={project.id}>
-                    <Link
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-900 dark:text-gray-100 font-medium hover:text-gray-600 dark:hover:text-gray-400 transition-colors text-sm"
-                    >
-                      {project.name} →
-                    </Link>
-                    <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed mt-1">
+          {/* Other Projects */}
+          <section className="space-y-8">
+            <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground border-b border-border pb-2">Archive</h2>
+            <div className="grid gap-6">
+              {otherProjects.map((project) => (
+                <div key={project.id} className="group">
+                  <Link href={project.github} target="_blank" rel="noopener noreferrer" className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-8">
+                    <h3 className="text-lg font-medium group-hover:underline decoration-1 underline-offset-4 shrink-0">{project.name}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-1 sm:text-right">
                       {project.description}
                     </p>
-                  </div>
-                ))}
+                  </Link>
+                </div>
+              ))}
             </div>
-          </div>
-
-          {/* Web Applications */}
-          <div>
-            <h2 className="text-gray-700 dark:text-gray-300 font-medium mb-5 text-sm">Web Applications</h2>
-            <div className="space-y-6">
-              {otherProjects
-                .filter(
-                  (project) =>
-                    project.name.toLowerCase().includes("web") ||
-                    project.name.toLowerCase().includes("app") ||
-                    project.name.toLowerCase().includes("password") ||
-                    (!project.name.toLowerCase().includes("scanner") && !project.name.toLowerCase().includes("hash")),
-                )
-                .map((project) => (
-                  <div key={project.id}>
-                    <Link
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-900 dark:text-gray-100 font-medium hover:text-gray-600 dark:hover:text-gray-400 transition-colors text-sm"
-                    >
-                      {project.name} →
-                    </Link>
-                    <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed mt-1">
-                      {project.description}
-                    </p>
-                  </div>
-                ))}
-            </div>
-          </div>
+          </section>
         </div>
 
-        {/* Footer */}
-        <footer className="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400">
-          <p>Build, learn, secure.</p>
-          <div className="flex items-center gap-1">
-            <span>2025</span>
-          </div>
-        </footer>
-      </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="p-6 flex justify-between items-center text-xs text-muted-foreground font-mono uppercase tracking-widest">
+        <div>
+          &copy; 2025 Ronald Mat
+        </div>
+        <div className="flex gap-4">
+          <Link href="https://github.com" className="hover:text-foreground transition-colors">GitHub</Link>
+          <Link href="https://twitter.com" className="hover:text-foreground transition-colors">Twitter</Link>
+        </div>
+      </footer>
     </div>
   )
 }
