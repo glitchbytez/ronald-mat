@@ -89,30 +89,31 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   return (
-    <main className="flex flex-col px-6 max-w-3xl mx-auto w-full">
+    <main className="flex flex-col px-6 max-w-3xl mx-auto w-full animate-fade-in">
 
       <article>
         {/* Title and Meta */}
-        <div className="mb-12 text-center">
-          <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">
+        <div className="mb-16 text-center pt-12">
+          <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-6">
             {new Date(article.date).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight">{article.title}</h1>
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tighter leading-tight mb-8">{article.title}</h1>
+          <div className="w-24 h-1 bg-primary/20 mx-auto rounded-full"></div>
         </div>
 
         {/* Content */}
-        <div className="prose prose-invert max-w-none">
+        <div className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-p:text-muted-foreground prose-p:leading-relaxed prose-code:text-primary prose-pre:bg-card/50 prose-pre:border prose-pre:border-border/50">
           {renderContent(article.content)}
         </div>
       </article>
 
-      <div className="mt-16 pt-8 border-t border-border flex justify-center">
-        <Link href="/writing" className="font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">
-          ← Back to Writing
+      <div className="mt-24 pt-12 border-t border-border/50 flex justify-center pb-12">
+        <Link href="/writing" className="group flex items-center font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform mr-2">←</span> Back to Writing
         </Link>
       </div>
 

@@ -68,7 +68,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col selection:bg-primary/10 selection:text-primary`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -77,31 +77,40 @@ export default function RootLayout({
           storageKey="theme"
         >
           {/* Global Sticky Header */}
-          <header className="fixed top-0 left-0 right-0 p-6 flex justify-between items-center z-50 bg-background/80 backdrop-blur-sm">
-            <div className="text-xl font-bold tracking-tighter">
-              <Link href="/" className="hover:text-muted-foreground transition-colors">
+          <header className="fixed top-0 left-0 right-0 h-16 px-6 flex justify-between items-center z-50 bg-background/60 backdrop-blur-md border-b border-border/40 supports-[backdrop-filter]:bg-background/60">
+            <div className="text-lg font-bold tracking-tight">
+              <Link href="/" className="hover:text-primary/80 transition-colors flex items-center gap-2">
                 <span className="hidden sm:inline">RONALD MAT</span>
                 <span className="sm:hidden">RM</span>
               </Link>
             </div>
-            <nav className="flex gap-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-              <Link href="/projects" className="hover:text-foreground transition-colors">Projects</Link>
-              <Link href="/writing" className="hover:text-foreground transition-colors">Writing</Link>
-              <Link href="mailto:ronald@mat.dev" className="hover:text-foreground transition-colors">Contact</Link>
+            <nav className="flex gap-8 text-sm font-medium text-muted-foreground">
+              <Link href="/projects" className="hover:text-foreground transition-colors relative group">
+                Projects
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+              </Link>
+              <Link href="/writing" className="hover:text-foreground transition-colors relative group">
+                Writing
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+              </Link>
+              <Link href="mailto:ronald@mat.dev" className="hover:text-foreground transition-colors relative group">
+                Contact
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+              </Link>
             </nav>
           </header>
 
           {/* Main Content Wrapper */}
-          <div className="flex-1 flex flex-col pt-24 pb-24">
+          <div className="flex-1 flex flex-col pt-24 pb-24 animate-fade-in">
             {children}
           </div>
 
           {/* Global Sticky Footer */}
-          <footer className="fixed bottom-0 left-0 right-0 p-6 flex justify-between items-center text-xs text-muted-foreground font-mono uppercase tracking-widest bg-background/80 backdrop-blur-sm z-50 border-t border-border/50">
+          <footer className="fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center text-xs text-muted-foreground font-mono bg-background/60 backdrop-blur-md border-t border-border/40 z-50">
             <div>
               &copy; 2025 Ronald Mat
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-6">
               <Link href="https://github.com" className="hover:text-foreground transition-colors">GitHub</Link>
               <Link href="https://twitter.com" className="hover:text-foreground transition-colors">Twitter</Link>
             </div>
