@@ -1,12 +1,30 @@
 import type React from "react"
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Inter, JetBrains_Mono } from "next/font/google"
+import { IM_Fell_English, Shippori_Mincho, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" })
+const imFellEnglish = IM_Fell_English({
+  weight: ["400"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+})
+
+const shipporiMincho = Shippori_Mincho({
+  weight: ["400", "600"],
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "Ronald Mat",
@@ -54,21 +72,19 @@ export default function RootLayout({
                 
                 setTheme();
                 
-                // Listen for storage changes (when theme is changed in another tab)
                 window.addEventListener('storage', function(e) {
-                  if (e.key === 'theme') {
-                    setTheme();
-                  }
+                  if (e.key === 'theme') setTheme();
                 });
                 
-                // Listen for system theme changes
                 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setTheme);
               })();
             `,
           }}
         />
       </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col selection:bg-primary/10 selection:text-primary`}>
+      <body
+        className={`${imFellEnglish.variable} ${shipporiMincho.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -76,43 +92,54 @@ export default function RootLayout({
           disableTransitionOnChange={false}
           storageKey="theme"
         >
-          {/* Global Sticky Header */}
-          <header className="fixed top-0 left-0 right-0 h-16 px-6 flex justify-between items-center z-50 bg-background/60 backdrop-blur-md border-b border-border/40 supports-[backdrop-filter]:bg-background/60">
-            <div className="text-lg font-bold tracking-tight">
-              <Link href="/" className="hover:text-primary/80 transition-colors flex items-center gap-2">
-                <span className="hidden sm:inline">RONALD MAT</span>
+          {/* Global Sticky Header — quiet, recedes */}
+          <header className="fixed top-0 left-0 right-0 h-14 px-8 flex justify-between items-center z-50 bg-background/95 border-b border-border/30">
+            <div>
+              <Link
+                href="/"
+                className="font-display font-normal text-xs tracking-[0.22em] uppercase opacity-80 hover:opacity-100 transition-opacity duration-500"
+              >
+                <span className="hidden sm:inline">Ronald Mat</span>
                 <span className="sm:hidden">RM</span>
               </Link>
             </div>
-            <nav className="flex gap-8 text-sm font-medium text-muted-foreground">
-              <Link href="/projects" className="hover:text-foreground transition-colors relative group">
+            <nav className="flex gap-10 text-xs text-muted-foreground">
+              <Link
+                href="/projects"
+                className="tracking-[0.12em] uppercase opacity-50 hover:opacity-90 transition-opacity duration-500"
+              >
                 Projects
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
               </Link>
-              <Link href="/writing" className="hover:text-foreground transition-colors relative group">
+              <Link
+                href="/writing"
+                className="tracking-[0.12em] uppercase opacity-50 hover:opacity-90 transition-opacity duration-500"
+              >
                 Writing
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
               </Link>
-              <Link href="mailto:ronald@mat.dev" className="hover:text-foreground transition-colors relative group">
+              <Link
+                href="mailto:ronald@mat.dev"
+                className="tracking-[0.12em] uppercase opacity-50 hover:opacity-90 transition-opacity duration-500"
+              >
                 Contact
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
               </Link>
             </nav>
           </header>
 
-          {/* Main Content Wrapper */}
-          <div className="flex-1 flex flex-col pt-24 pb-24 animate-fade-in">
+          {/* Main Content */}
+          <div className="flex-1 flex flex-col pt-24 pb-24 animate-wabi-in">
             {children}
           </div>
 
-          {/* Global Sticky Footer */}
-          <footer className="fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center text-xs text-muted-foreground font-mono bg-background/60 backdrop-blur-md border-t border-border/40 z-50">
-            <div>
-              &copy; 2025 Ronald Mat
-            </div>
+          {/* Global Sticky Footer — barely there */}
+          <footer className="fixed bottom-0 left-0 right-0 py-4 px-8 flex justify-between items-center text-xs text-muted-foreground font-mono bg-background/95 border-t border-border/20 z-50 opacity-50 hover:opacity-80 transition-opacity duration-500">
+            <div>&copy; 2025 Ronald Mat</div>
             <div className="flex gap-6">
-              <Link href="https://github.com" className="hover:text-foreground transition-colors">GitHub</Link>
-              <Link href="https://twitter.com" className="hover:text-foreground transition-colors">Twitter</Link>
+              <Link href="https://github.com" className="tracking-wider uppercase hover:text-foreground transition-colors duration-500">
+                GitHub
+              </Link>
+              <Link href="https://twitter.com" className="tracking-wider uppercase hover:text-foreground transition-colors duration-500">
+                Twitter
+              </Link>
             </div>
           </footer>
         </ThemeProvider>
