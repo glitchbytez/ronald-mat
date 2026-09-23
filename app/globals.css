@@ -4,70 +4,73 @@
 
 @layer base {
   :root {
-    --font-sans: "Inter", sans-serif;
-    --font-mono: "JetBrains Mono", monospace;
+    /* ── Wabi-sabi Light Mode: aged parchment & warm ink ── */
+    --background:        35 18% 96%;
+    --foreground:        25 15% 15%;
 
-    /* Light Mode - Clean & Crisp */
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --card:              35 14% 93%;
+    --card-foreground:   25 15% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --popover:           35 14% 93%;
+    --popover-foreground: 25 15% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --primary:           25 20% 20%;
+    --primary-foreground: 35 18% 96%;
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --secondary:         35 12% 89%;
+    --secondary-foreground: 25 15% 15%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --muted:             35 12% 89%;
+    --muted-foreground:  25 10% 48%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --accent:            32 22% 85%;
+    --accent-foreground: 25 20% 20%;
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --destructive:       0 72% 45%;
+    --destructive-foreground: 35 18% 96%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --border:            25 12% 82%;
+    --input:             25 12% 82%;
+    --ring:              25 20% 20%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    /* Nearly square — hand-cut washi feel */
+    --radius: 0.15rem;
 
-    --radius: 0.5rem;
+    /* Font variables (populated by next/font) */
+    --font-sans:    'IM Fell English', serif;
+    --font-display: 'Shippori Mincho', serif;
+    --font-mono:    'JetBrains Mono', monospace;
   }
 
   .dark {
-    /* Dark Mode - Rich & Deep */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    /* ── Wabi-sabi Dark Mode: sumi ink & mulberry paper ── */
+    --background:        25 8% 8%;
+    --foreground:        35 20% 88%;
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card:              25 8% 11%;
+    --card-foreground:   35 20% 88%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover:           25 8% 11%;
+    --popover-foreground: 35 20% 88%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+    --primary:           35 20% 85%;
+    --primary-foreground: 25 8% 8%;
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary:         25 6% 15%;
+    --secondary-foreground: 35 20% 88%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted:             25 6% 15%;
+    --muted-foreground:  35 10% 58%;
 
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent:            25 10% 18%;
+    --accent-foreground: 35 20% 88%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive:       0 55% 35%;
+    --destructive-foreground: 35 20% 88%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border:            25 8% 18%;
+    --input:             25 8% 18%;
+    --ring:              35 15% 70%;
   }
 }
 
@@ -84,10 +87,40 @@
     color-scheme: dark;
   }
 
+  /* Prevent FOUC */
+  html:not(.dark) {
+    background-color: hsl(35 18% 96%);
+    color: hsl(25 15% 15%);
+  }
+
+  html.dark {
+    background-color: hsl(25 8% 8%);
+    color: hsl(35 20% 88%);
+  }
+
   body {
     font-family: var(--font-sans);
-    font-weight: 500;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.75;
     @apply bg-background text-foreground;
+  }
+
+  /* Washi paper grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url('/grain.svg');
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.028;
+  }
+
+  html.dark body::before {
+    opacity: 0.048;
   }
 
   h1,
@@ -96,21 +129,44 @@
   h4,
   h5,
   h6 {
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.02em;
   }
 
   a {
-    font-weight: 500;
+    font-weight: 400;
   }
 
-  /* Prevent flash by ensuring immediate theme application */
-  html:not(.dark) {
-    background-color: white;
-    color: rgb(17 24 39);
+  /* Selection */
+  ::selection {
+    background-color: hsl(32 22% 85% / 0.5);
+    color: hsl(25 15% 15%);
   }
 
-  html.dark {
-    background-color: rgb(17 24 39);
-    color: rgb(249 250 251);
+  html.dark ::selection {
+    background-color: hsl(25 10% 28% / 0.7);
+    color: hsl(35 20% 88%);
+  }
+}
+
+/* ── Wabi-sabi animations: slow, meditative, breath-like ── */
+@keyframes wabi-appear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@layer utilities {
+  .animate-wabi-in {
+    animation: wabi-appear 1.2s ease-in forwards;
+  }
+
+  .animate-wabi-in-slow {
+    opacity: 0;
+    animation: wabi-appear 1.6s ease-in 0.5s forwards;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
   }
 }

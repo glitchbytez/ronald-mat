@@ -63,45 +63,44 @@ const config: Config = {
 				}
 			},
 			fontFamily: {
-				sans: ["var(--font-sans)", "sans-serif"],
-				mono: ["var(--font-mono)", "monospace"],
+				sans:    ["var(--font-sans)", "serif"],
+				display: ["var(--font-display)", "serif"],
+				mono:    ["var(--font-mono)", "monospace"],
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				// Nearly square — hand-cut washi feel
+				lg:  'var(--radius)',
+				md:  'calc(var(--radius) + 2px)',
+				sm:  'var(--radius)',
+				none: '0px',
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to:   { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to:   { height: '0' }
 				},
-				'fade-in': {
-					from: { opacity: '0', transform: 'translateY(10px)' },
-					to: { opacity: '1', transform: 'translateY(0)' }
+				// Wabi-sabi: slow, breath-like opacity fades — no translateY
+				'wabi-appear': {
+					from: { opacity: '0' },
+					to:   { opacity: '1' }
 				},
-				'fade-in-delayed': {
-					from: { opacity: '0', transform: 'translateY(10px)' },
-					to: { opacity: '1', transform: 'translateY(0)' }
-				}
+				'wabi-appear-slow': {
+					from: { opacity: '0' },
+					to:   { opacity: '1' }
+				},
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 0.5s ease-out forwards',
-				'fade-in-delayed': 'fade-in-delayed 0.5s ease-out 0.2s forwards'
+				'accordion-down':    'accordion-down 0.2s ease-out',
+				'accordion-up':      'accordion-up 0.2s ease-out',
+				'wabi-in':           'wabi-appear 1.2s ease-in forwards',
+				'wabi-in-slow':      'wabi-appear-slow 1.6s ease-in 0.5s forwards',
+				// Keep old names as aliases so existing classes don't break immediately
+				'fade-in':           'wabi-appear 1.2s ease-in forwards',
+				'fade-in-delayed':   'wabi-appear-slow 1.6s ease-in 0.5s forwards',
 			}
 		}
 	},
