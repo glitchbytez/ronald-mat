@@ -10,7 +10,6 @@ interface ArticlePageProps {
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  // Ensure params are properly awaited in async component
   const { slug } = await Promise.resolve(params);
 
   const article = articlesData.articles.find((a) => a.slug === slug)
@@ -30,12 +29,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
       if (line.startsWith("## ")) {
         elements.push(
-          <h2 key={currentIndex++} className="text-xl font-bold tracking-tight mt-10 mb-4">
+          <h2
+            key={currentIndex++}
+            className="font-display text-2xl font-normal italic tracking-wide mt-14 mb-5 opacity-90"
+          >
             {line.replace("## ", "")}
           </h2>,
         )
       } else if (line.startsWith("```")) {
-        // Find the closing ```
         let codeContent = ""
         let j = i + 1
         while (j < lines.length && !lines[j].startsWith("```")) {
@@ -43,15 +44,17 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           j++
         }
         elements.push(
-          <div key={currentIndex++} className="bg-muted/50 rounded-lg p-4 my-6 border border-border">
-            <pre className="text-xs font-mono overflow-x-auto">
+          <div
+            key={currentIndex++}
+            className="border-l-2 border-border/50 bg-muted/30 pl-4 pr-4 py-3 my-8 rounded-none"
+          >
+            <pre className="text-xs font-mono overflow-x-auto text-muted-foreground leading-relaxed">
               <code>{codeContent.trim()}</code>
             </pre>
           </div>,
         )
-        i = j // Skip to after the closing ```
+        i = j
       } else if (line.startsWith("- ")) {
-        // Handle list items
         const listItems = []
         let k = i
         while (k < lines.length && lines[k].startsWith("- ")) {
@@ -59,26 +62,25 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           k++
         }
         elements.push(
-          <ul key={currentIndex++} className="list-disc list-inside space-y-2 ml-4 my-4 text-muted-foreground">
+          <ul key={currentIndex++} className="space-y-2 ml-6 my-6 text-muted-foreground font-light">
             {listItems.map((item, idx) => (
-              <li key={idx}>
+              <li key={idx} className="relative before:content-['·'] before:absolute before:-left-4 before:opacity-50">
                 {item}
               </li>
             ))}
           </ul>,
         )
-        i = k - 1 // Adjust index
+        i = k - 1
       } else if (line.trim() !== "") {
-        // Regular paragraph
         const processedLine = line.replace(
           /`([^`]+)`/g,
-          '<code class="bg-muted px-1 py-0.5 rounded text-xs font-mono">$1</code>',
+          '<code class="border-b border-border/50 bg-transparent font-mono text-xs text-foreground/80 px-0.5">$1</code>',
         )
 
         elements.push(
           <p
             key={currentIndex++}
-            className="text-muted-foreground leading-relaxed mb-4"
+            className="font-sans text-muted-foreground leading-[1.85] mb-5 font-light"
             dangerouslySetInnerHTML={{ __html: processedLine }}
           />,
         )
@@ -89,31 +91,37 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   return (
-    <main className="flex flex-col px-6 max-w-3xl mx-auto w-full animate-fade-in">
+    <main className="flex flex-col px-8 max-w-2xl mx-auto w-full animate-wabi-in">
 
       <article>
-        {/* Title and Meta */}
-        <div className="mb-16 text-center pt-12">
-          <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-6">
+        {/* Date + Title */}
+        <div className="mb-16 pt-8">
+          <div className="font-sans text-xs italic opacity-40 uppercase tracking-widest mb-6">
             {new Date(article.date).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
           </div>
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tighter leading-tight mb-8">{article.title}</h1>
-          <div className="w-24 h-1 bg-primary/20 mx-auto rounded-full"></div>
+          <h1 className="font-display text-4xl md:text-5xl font-normal tracking-wide leading-tight mb-10">
+            {article.title}
+          </h1>
+          <hr className="border-t border-border/30 w-16" />
         </div>
 
         {/* Content */}
-        <div className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-p:text-muted-foreground prose-p:leading-relaxed prose-code:text-primary prose-pre:bg-card/50 prose-pre:border prose-pre:border-border/50">
+        <div className="max-w-none">
           {renderContent(article.content)}
         </div>
       </article>
 
-      <div className="mt-24 pt-12 border-t border-border/50 flex justify-center pb-12">
-        <Link href="/writing" className="group flex items-center font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform mr-2">←</span> Back to Writing
+      {/* Back link */}
+      <div className="mt-24 pt-10 border-t border-border/20 pb-12">
+        <Link
+          href="/writing"
+          className="font-sans text-xs italic opacity-40 hover:opacity-80 transition-opacity duration-500 tracking-wide"
+        >
+          ← back to writing
         </Link>
       </div>
 
