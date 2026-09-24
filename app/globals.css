@@ -4,70 +4,71 @@
 
 @layer base {
   :root {
-    --font-sans: "Inter", sans-serif;
-    --font-mono: "JetBrains Mono", monospace;
+    /* ── Wabi-sabi Light: Aged Washi Paper, Charcoal Sumi Ink & Japanese Vermillion ── */
+    --background:        38 25% 94%;   /* #F5F2EA Aged Washi Paper */
+    --foreground:        20 15% 12%;   /* #211D1B Deep Sumi Ink */
 
-    /* Light Mode - Clean & Crisp */
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --card:              38 20% 90%;   /* Pressed Mulberry Paper */
+    --card-foreground:   20 15% 12%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --popover:           38 20% 90%;
+    --popover-foreground: 20 15% 12%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --primary:           0 65% 38%;    /* 朱色 Syojoji Vermillion Red */
+    --primary-foreground: 38 25% 94%;
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --secondary:         35 15% 85%;   /* Weathered Stone */
+    --secondary-foreground: 20 15% 12%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --muted:             35 15% 85%;
+    --muted-foreground:  20 10% 45%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --accent:            0 50% 90%;    /* Soft Sakura tint */
+    --accent-foreground: 0 65% 38%;
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --destructive:       0 72% 45%;
+    --destructive-foreground: 38 25% 94%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --border:            25 15% 80%;
+    --input:             25 15% 80%;
+    --ring:              0 65% 38%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --radius: 0.15rem;
 
-    --radius: 0.5rem;
+    --font-sans:    'IM Fell English', serif;
+    --font-display: 'Shippori Mincho', serif;
+    --font-mono:    'JetBrains Mono', monospace;
   }
 
   .dark {
-    /* Dark Mode - Rich & Deep */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    /* ── Wabi-sabi Dark: Deep Charcoal Obsidian, Pine Ash & Vermillion Seal ── */
+    --background:        20 12% 7%;    /* #141110 Deep Charcoal Sumi */
+    --foreground:        38 20% 86%;   /* Weathered Parchment Text */
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card:              20 10% 11%;   /* Burnt Cedar Board */
+    --card-foreground:   38 20% 86%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover:           20 10% 11%;
+    --popover-foreground: 38 20% 86%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+    --primary:           0 75% 55%;    /* Japanese Seal Vermillion */
+    --primary-foreground: 20 12% 7%;
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary:         20 8% 16%;
+    --secondary-foreground: 38 20% 86%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted:             20 8% 16%;
+    --muted-foreground:  38 10% 55%;
 
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent:            0 30% 15%;
+    --accent-foreground: 0 75% 55%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive:       0 65% 45%;
+    --destructive-foreground: 38 20% 86%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border:            20 10% 18%;
+    --input:             20 10% 18%;
+    --ring:              0 75% 55%;
   }
 }
 
@@ -76,41 +77,188 @@
     @apply border-border;
   }
 
-  html {
-    color-scheme: light;
-  }
+  html { color-scheme: light; }
+  html.dark { color-scheme: dark; }
 
-  html.dark {
-    color-scheme: dark;
-  }
+  /* Prevent FOUC */
+  html:not(.dark) { background-color: hsl(38 25% 94%); color: hsl(20 15% 12%); }
+  html.dark { background-color: hsl(20 12% 7%); color: hsl(38 20% 86%); }
 
   body {
     font-family: var(--font-sans);
-    font-weight: 500;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.75;
     @apply bg-background text-foreground;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: 600;
+  /* ── Custom ink cursor ── */
+  @media (hover: hover) and (pointer: fine) {
+    body { cursor: none; }
+    a, button, [role="button"] { cursor: none; }
   }
 
-  a {
-    font-weight: 500;
+  /* Authentic Washi paper texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url('/grain.svg');
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.04;
+  }
+  html.dark body::before { opacity: 0.06; }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.03em;
   }
 
-  /* Prevent flash by ensuring immediate theme application */
-  html:not(.dark) {
-    background-color: white;
-    color: rgb(17 24 39);
+  a { font-weight: 400; }
+
+  ::selection {
+    background-color: hsl(0 65% 38% / 0.25);
+    color: inherit;
+  }
+  html.dark ::selection {
+    background-color: hsl(0 75% 55% / 0.35);
+    color: inherit;
+  }
+}
+
+/* ════════════════════════════════════════════
+   KEYFRAMES
+   ════════════════════════════════════════════ */
+
+@keyframes wabi-appear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes char-bleed {
+  0%   { opacity: 0; filter: blur(5px); transform: translateY(4px); }
+  60%  { opacity: 1; filter: blur(0px); transform: translateY(-1px); }
+  100% { opacity: 1; filter: blur(0px); transform: translateY(0); }
+}
+
+@keyframes line-draw {
+  from { width: 0; opacity: 0; }
+  to   { width: 8rem; opacity: 1; }
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes soft-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.3); }
+}
+
+/* ════════════════════════════════════════════
+   UTILITIES
+   ════════════════════════════════════════════ */
+
+@layer utilities {
+  .animate-wabi-in {
+    animation: wabi-appear 1.2s ease-in forwards;
+  }
+  .animate-wabi-in-slow {
+    opacity: 0;
+    animation: wabi-appear 1.6s ease-in 0.5s forwards;
   }
 
-  html.dark {
-    background-color: rgb(17 24 39);
-    color: rgb(249 250 251);
+  .char-unit {
+    display: inline-block;
+    opacity: 0;
+    animation: char-bleed 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .line-draw {
+    width: 0;
+    opacity: 0;
+    animation: line-draw 1s cubic-bezier(0.19, 1, 0.22, 1) 2.4s forwards;
+  }
+
+  .ticker-track {
+    animation: ticker-scroll 40s linear infinite;
+  }
+
+  .pulse-dot {
+    animation: soft-pulse 2.4s ease-in-out infinite;
+  }
+
+  .reveal-hidden {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tilt-root {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+/* ── Custom ink cursor elements ── */
+.ink-cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background-color: hsl(var(--primary));
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+}
+
+.ink-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid hsl(var(--primary) / 0.4);
+  pointer-events: none;
+  z-index: 99998;
+  will-change: transform;
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+}
+.ink-cursor-ring.is-hovering {
+  width: 44px; height: 44px;
+  border-color: hsl(var(--primary));
+  margin: -8px 0 0 -8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char-unit,
+  .animate-wabi-in,
+  .animate-wabi-in-slow,
+  .line-draw,
+  .ticker-track,
+  .pulse-dot {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+    width: auto;
+  }
+  .reveal-hidden {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
