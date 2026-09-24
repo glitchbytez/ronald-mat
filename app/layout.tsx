@@ -5,6 +5,7 @@ import { IM_Fell_English, Shippori_Mincho, JetBrains_Mono } from "next/font/goog
 import { ThemeProvider } from "@/components/theme-provider"
 import { InkCursor }  from "@/components/ink-cursor"
 import { LiveClock }  from "@/components/live-clock"
+import { HankoStamp } from "@/components/hanko-stamp"
 import "./globals.css"
 
 const imFellEnglish = IM_Fell_English({
@@ -29,17 +30,12 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Ronald Mat",
-  description: "Junior software developer passionate about cybersecurity and networking",
+  title: "Ronald Mat — ロナルド マット",
+  description: "Junior software developer & UI engineer passionate about cybersecurity, wabi-sabi design systems, and network security",
   icons: {
     icon: [
       { url: "/favicon.ico" },
       { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [
-      { url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
 }
@@ -88,51 +84,71 @@ export default function RootLayout({
           disableTransitionOnChange={false}
           storageKey="theme"
         >
-          {/* Physics-based ink cursor */}
           <InkCursor />
 
-          {/* ── Global Header ── */}
-          <header className="fixed top-0 left-0 right-0 h-14 px-8 flex items-center justify-between z-50 bg-background/95 border-b border-border/30">
-            {/* Logo */}
+          {/* ── Authentic Wabi-Sabi Header ── */}
+          <header className="fixed top-0 left-0 right-0 h-16 px-8 flex items-center justify-between z-50 bg-background/90 backdrop-blur-md border-b border-border/40">
+            {/* Brand Logo with Hanko Seal & Kanji */}
             <Link
               href="/"
-              className="font-display font-normal text-xs tracking-[0.22em] uppercase opacity-75 hover:opacity-100 transition-opacity duration-500"
+              className="flex items-center gap-3 group"
             >
-              <span className="hidden sm:inline">Ronald Mat</span>
-              <span className="sm:hidden">RM</span>
+              <HankoStamp kanji="侘" subtext="印" size="sm" />
+              <div className="flex flex-col">
+                <span className="font-display text-sm tracking-[0.2em] uppercase font-semibold text-foreground group-hover:text-primary transition-colors">
+                  Ronald Mat
+                </span>
+                <span className="font-mono text-[10px] text-muted-foreground opacity-60">
+                  ロナルド マット
+                </span>
+              </div>
             </Link>
 
-            {/* Live clock — signals the site is alive */}
-            <LiveClock />
+            {/* Live Local Clock */}
+            <div className="hidden md:flex items-center gap-2">
+              <span className="font-mono text-[10px] uppercase text-muted-foreground opacity-50 tracking-wider">
+                TOKYO / LOCAL:
+              </span>
+              <LiveClock />
+            </div>
 
-            {/* Nav */}
-            <nav className="flex gap-10">
-              {(["Projects", "Writing", "Contact"] as const).map((label) => (
+            {/* Navigation with Japanese Calligraphy Subtitles */}
+            <nav className="flex gap-8">
+              {[
+                { label: "Projects", kanji: "作品", href: "/projects" },
+                { label: "Writing",  kanji: "文章", href: "/writing" },
+                { label: "Craft",    kanji: "工芸", href: "/craft" },
+                { label: "Contact",  kanji: "連絡", href: "mailto:ronald@mat.dev" },
+              ].map(({ label, kanji, href }) => (
                 <Link
                   key={label}
-                  href={
-                    label === "Contact"
-                      ? "mailto:ronald@mat.dev"
-                      : `/${label.toLowerCase()}`
-                  }
-                  className="font-sans text-[10px] tracking-[0.18em] uppercase text-muted-foreground opacity-45 hover:opacity-90 transition-opacity duration-500"
+                  href={href}
+                  className="flex flex-col items-end group"
                 >
-                  {label}
+                  <span className="font-sans text-xs tracking-[0.15em] uppercase text-muted-foreground group-hover:text-primary transition-colors">
+                    {label}
+                  </span>
+                  <span className="font-display text-[10px] text-muted-foreground opacity-40 group-hover:opacity-90 transition-opacity">
+                    {kanji}
+                  </span>
                 </Link>
               ))}
             </nav>
           </header>
 
           {/* Main content */}
-          <div className="flex-1 flex flex-col pt-24 pb-24 animate-wabi-in">
+          <div className="flex-1 flex flex-col pt-28 pb-24 animate-wabi-in">
             {children}
           </div>
 
-          {/* ── Global Footer — barely there ── */}
-          <footer className="fixed bottom-0 left-0 right-0 py-4 px-8 flex justify-between items-center z-50 bg-background/95 border-t border-border/20">
-            <span className="font-mono text-[10px] text-muted-foreground opacity-30 tracking-widest">
-              &copy; 2025 Ronald Mat
-            </span>
+          {/* ── Authentic Wabi-Sabi Footer ── */}
+          <footer className="fixed bottom-0 left-0 right-0 py-4 px-8 flex justify-between items-center z-50 bg-background/90 backdrop-blur-md border-t border-border/30">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[11px] text-muted-foreground opacity-50 tracking-widest">
+                &copy; 2025 Ronald Mat • 侘寂
+              </span>
+            </div>
+
             <div className="flex gap-6">
               {[
                 { label: "GitHub",  href: "https://github.com" },
@@ -141,7 +157,7 @@ export default function RootLayout({
                 <Link
                   key={label}
                   href={href}
-                  className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground opacity-30 hover:opacity-70 transition-opacity duration-500"
+                  className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground opacity-50 hover:text-primary transition-colors"
                 >
                   {label}
                 </Link>

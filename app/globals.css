@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    /* ── Wabi-sabi Light Mode: aged parchment & warm ink ── */
-    --background:        35 18% 96%;
-    --foreground:        25 15% 15%;
+    /* ── Wabi-sabi Light: Aged Washi Paper, Charcoal Sumi Ink & Japanese Vermillion ── */
+    --background:        38 25% 94%;   /* #F5F2EA Aged Washi Paper */
+    --foreground:        20 15% 12%;   /* #211D1B Deep Sumi Ink */
 
-    --card:              35 14% 93%;
-    --card-foreground:   25 15% 15%;
+    --card:              38 20% 90%;   /* Pressed Mulberry Paper */
+    --card-foreground:   20 15% 12%;
 
-    --popover:           35 14% 93%;
-    --popover-foreground: 25 15% 15%;
+    --popover:           38 20% 90%;
+    --popover-foreground: 20 15% 12%;
 
-    --primary:           25 20% 20%;
-    --primary-foreground: 35 18% 96%;
+    --primary:           0 65% 38%;    /* 朱色 Syojoji Vermillion Red */
+    --primary-foreground: 38 25% 94%;
 
-    --secondary:         35 12% 89%;
-    --secondary-foreground: 25 15% 15%;
+    --secondary:         35 15% 85%;   /* Weathered Stone */
+    --secondary-foreground: 20 15% 12%;
 
-    --muted:             35 12% 89%;
-    --muted-foreground:  25 10% 48%;
+    --muted:             35 15% 85%;
+    --muted-foreground:  20 10% 45%;
 
-    --accent:            32 22% 85%;
-    --accent-foreground: 25 20% 20%;
+    --accent:            0 50% 90%;    /* Soft Sakura tint */
+    --accent-foreground: 0 65% 38%;
 
     --destructive:       0 72% 45%;
-    --destructive-foreground: 35 18% 96%;
+    --destructive-foreground: 38 25% 94%;
 
-    --border:            25 12% 82%;
-    --input:             25 12% 82%;
-    --ring:              25 20% 20%;
+    --border:            25 15% 80%;
+    --input:             25 15% 80%;
+    --ring:              0 65% 38%;
 
     --radius: 0.15rem;
 
@@ -41,34 +41,34 @@
   }
 
   .dark {
-    /* ── Wabi-sabi Dark Mode: sumi ink & mulberry paper ── */
-    --background:        25 8% 8%;
-    --foreground:        35 20% 88%;
+    /* ── Wabi-sabi Dark: Deep Charcoal Obsidian, Pine Ash & Vermillion Seal ── */
+    --background:        20 12% 7%;    /* #141110 Deep Charcoal Sumi */
+    --foreground:        38 20% 86%;   /* Weathered Parchment Text */
 
-    --card:              25 8% 11%;
-    --card-foreground:   35 20% 88%;
+    --card:              20 10% 11%;   /* Burnt Cedar Board */
+    --card-foreground:   38 20% 86%;
 
-    --popover:           25 8% 11%;
-    --popover-foreground: 35 20% 88%;
+    --popover:           20 10% 11%;
+    --popover-foreground: 38 20% 86%;
 
-    --primary:           35 20% 85%;
-    --primary-foreground: 25 8% 8%;
+    --primary:           0 75% 55%;    /* Japanese Seal Vermillion */
+    --primary-foreground: 20 12% 7%;
 
-    --secondary:         25 6% 15%;
-    --secondary-foreground: 35 20% 88%;
+    --secondary:         20 8% 16%;
+    --secondary-foreground: 38 20% 86%;
 
-    --muted:             25 6% 15%;
-    --muted-foreground:  35 10% 58%;
+    --muted:             20 8% 16%;
+    --muted-foreground:  38 10% 55%;
 
-    --accent:            25 10% 18%;
-    --accent-foreground: 35 20% 88%;
+    --accent:            0 30% 15%;
+    --accent-foreground: 0 75% 55%;
 
-    --destructive:       0 55% 35%;
-    --destructive-foreground: 35 20% 88%;
+    --destructive:       0 65% 45%;
+    --destructive-foreground: 38 20% 86%;
 
-    --border:            25 8% 18%;
-    --input:             25 8% 18%;
-    --ring:              35 15% 70%;
+    --border:            20 10% 18%;
+    --input:             20 10% 18%;
+    --ring:              0 75% 55%;
   }
 }
 
@@ -81,8 +81,8 @@
   html.dark { color-scheme: dark; }
 
   /* Prevent FOUC */
-  html:not(.dark) { background-color: hsl(35 18% 96%); color: hsl(25 15% 15%); }
-  html.dark { background-color: hsl(25 8% 8%); color: hsl(35 20% 88%); }
+  html:not(.dark) { background-color: hsl(38 25% 94%); color: hsl(20 15% 12%); }
+  html.dark { background-color: hsl(20 12% 7%); color: hsl(38 20% 86%); }
 
   body {
     font-family: var(--font-sans);
@@ -92,13 +92,13 @@
     @apply bg-background text-foreground;
   }
 
-  /* ── Custom ink cursor (pointer devices only) ── */
+  /* ── Custom ink cursor ── */
   @media (hover: hover) and (pointer: fine) {
     body { cursor: none; }
     a, button, [role="button"] { cursor: none; }
   }
 
-  /* Washi paper grain texture overlay */
+  /* Authentic Washi paper texture overlay */
   body::before {
     content: '';
     position: fixed;
@@ -108,25 +108,25 @@
     background-image: url('/grain.svg');
     background-repeat: repeat;
     background-size: 200px 200px;
-    opacity: 0.028;
+    opacity: 0.04;
   }
-  html.dark body::before { opacity: 0.048; }
+  html.dark body::before { opacity: 0.06; }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
   }
 
   a { font-weight: 400; }
 
   ::selection {
-    background-color: hsl(32 22% 85% / 0.5);
-    color: hsl(25 15% 15%);
+    background-color: hsl(0 65% 38% / 0.25);
+    color: inherit;
   }
   html.dark ::selection {
-    background-color: hsl(25 10% 28% / 0.7);
-    color: hsl(35 20% 88%);
+    background-color: hsl(0 75% 55% / 0.35);
+    color: inherit;
   }
 }
 
@@ -139,35 +139,25 @@
   to   { opacity: 1; }
 }
 
-/* Character reveal — ink bleeding into paper */
 @keyframes char-bleed {
-  0%   { opacity: 0; filter: blur(4px); transform: translateY(4px); }
+  0%   { opacity: 0; filter: blur(5px); transform: translateY(4px); }
   60%  { opacity: 1; filter: blur(0px); transform: translateY(-1px); }
   100% { opacity: 1; filter: blur(0px); transform: translateY(0); }
 }
 
-/* Thin rule draws in like a brushstroke */
 @keyframes line-draw {
   from { width: 0; opacity: 0; }
-  to   { width: 6rem; opacity: 1; }
+  to   { width: 8rem; opacity: 1; }
 }
 
-/* Horizontal ticker scroll */
 @keyframes ticker-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-/* Soft pulse for "live" indicator */
 @keyframes soft-pulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
+  0%, 100% { opacity: 0.4; transform: scale(1); }
   50%       { opacity: 1;   transform: scale(1.3); }
-}
-
-/* Scroll-reveal: translate up + fade */
-@keyframes scroll-reveal {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ════════════════════════════════════════════
@@ -175,7 +165,6 @@
    ════════════════════════════════════════════ */
 
 @layer utilities {
-  /* Base page fade */
   .animate-wabi-in {
     animation: wabi-appear 1.2s ease-in forwards;
   }
@@ -184,31 +173,26 @@
     animation: wabi-appear 1.6s ease-in 0.5s forwards;
   }
 
-  /* Character-by-character reveal */
   .char-unit {
     display: inline-block;
     opacity: 0;
     animation: char-bleed 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
 
-  /* Brushstroke rule */
   .line-draw {
     width: 0;
     opacity: 0;
     animation: line-draw 1s cubic-bezier(0.19, 1, 0.22, 1) 2.4s forwards;
   }
 
-  /* Skills ticker */
   .ticker-track {
     animation: ticker-scroll 40s linear infinite;
   }
 
-  /* Status live dot */
   .pulse-dot {
     animation: soft-pulse 2.4s ease-in-out infinite;
   }
 
-  /* Scroll-triggered reveal (toggled via JS IntersectionObserver) */
   .reveal-hidden {
     opacity: 0;
     transform: translateY(18px);
@@ -219,7 +203,6 @@
     transform: translateY(0);
   }
 
-  /* Tilt card 3D container */
   .tilt-root {
     transform-style: preserve-3d;
     will-change: transform;
@@ -235,34 +218,31 @@
 .ink-cursor-dot {
   position: fixed;
   top: 0; left: 0;
-  width: 5px; height: 5px;
+  width: 6px; height: 6px;
   border-radius: 50%;
-  background-color: hsl(var(--foreground));
+  background-color: hsl(var(--primary));
   pointer-events: none;
   z-index: 99999;
   will-change: transform;
-  mix-blend-mode: multiply;
 }
-.dark .ink-cursor-dot { mix-blend-mode: screen; }
 
 .ink-cursor-ring {
   position: fixed;
   top: 0; left: 0;
-  width: 26px; height: 26px;
+  width: 28px; height: 28px;
   border-radius: 50%;
-  border: 1px solid hsl(var(--foreground) / 0.2);
+  border: 1px solid hsl(var(--primary) / 0.4);
   pointer-events: none;
   z-index: 99998;
   will-change: transform;
   transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
 }
 .ink-cursor-ring.is-hovering {
-  width: 40px; height: 40px;
-  border-color: hsl(var(--foreground) / 0.4);
-  margin: -7px 0 0 -7px; /* compensate size change so it stays centred */
+  width: 44px; height: 44px;
+  border-color: hsl(var(--primary));
+  margin: -8px 0 0 -8px;
 }
 
-/* ── Reduced motion: strip all animations ── */
 @media (prefers-reduced-motion: reduce) {
   .char-unit,
   .animate-wabi-in,
