@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { IM_Fell_English, Shippori_Mincho, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import { InkCursor }  from "@/components/ink-cursor"
+import { LiveClock }  from "@/components/live-clock"
 import "./globals.css"
 
 const imFellEnglish = IM_Fell_English({
@@ -59,7 +61,6 @@ export default function RootLayout({
                     var theme = localStorage.getItem('theme');
                     var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                     var isDark = theme === 'dark' || (theme === 'system' && systemDark) || (!theme && systemDark);
-                    
                     if (isDark) {
                       document.documentElement.classList.add('dark');
                       document.documentElement.style.colorScheme = 'dark';
@@ -69,13 +70,8 @@ export default function RootLayout({
                     }
                   } catch (e) {}
                 }
-                
                 setTheme();
-                
-                window.addEventListener('storage', function(e) {
-                  if (e.key === 'theme') setTheme();
-                });
-                
+                window.addEventListener('storage', function(e) { if (e.key === 'theme') setTheme(); });
                 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setTheme);
               })();
             `,
@@ -92,54 +88,64 @@ export default function RootLayout({
           disableTransitionOnChange={false}
           storageKey="theme"
         >
-          {/* Global Sticky Header — quiet, recedes */}
-          <header className="fixed top-0 left-0 right-0 h-14 px-8 flex justify-between items-center z-50 bg-background/95 border-b border-border/30">
-            <div>
-              <Link
-                href="/"
-                className="font-display font-normal text-xs tracking-[0.22em] uppercase opacity-80 hover:opacity-100 transition-opacity duration-500"
-              >
-                <span className="hidden sm:inline">Ronald Mat</span>
-                <span className="sm:hidden">RM</span>
-              </Link>
-            </div>
-            <nav className="flex gap-10 text-xs text-muted-foreground">
-              <Link
-                href="/projects"
-                className="tracking-[0.12em] uppercase opacity-50 hover:opacity-90 transition-opacity duration-500"
-              >
-                Projects
-              </Link>
-              <Link
-                href="/writing"
-                className="tracking-[0.12em] uppercase opacity-50 hover:opacity-90 transition-opacity duration-500"
-              >
-                Writing
-              </Link>
-              <Link
-                href="mailto:ronald@mat.dev"
-                className="tracking-[0.12em] uppercase opacity-50 hover:opacity-90 transition-opacity duration-500"
-              >
-                Contact
-              </Link>
+          {/* Physics-based ink cursor */}
+          <InkCursor />
+
+          {/* ── Global Header ── */}
+          <header className="fixed top-0 left-0 right-0 h-14 px-8 flex items-center justify-between z-50 bg-background/95 border-b border-border/30">
+            {/* Logo */}
+            <Link
+              href="/"
+              className="font-display font-normal text-xs tracking-[0.22em] uppercase opacity-75 hover:opacity-100 transition-opacity duration-500"
+            >
+              <span className="hidden sm:inline">Ronald Mat</span>
+              <span className="sm:hidden">RM</span>
+            </Link>
+
+            {/* Live clock — signals the site is alive */}
+            <LiveClock />
+
+            {/* Nav */}
+            <nav className="flex gap-10">
+              {(["Projects", "Writing", "Contact"] as const).map((label) => (
+                <Link
+                  key={label}
+                  href={
+                    label === "Contact"
+                      ? "mailto:ronald@mat.dev"
+                      : `/${label.toLowerCase()}`
+                  }
+                  className="font-sans text-[10px] tracking-[0.18em] uppercase text-muted-foreground opacity-45 hover:opacity-90 transition-opacity duration-500"
+                >
+                  {label}
+                </Link>
+              ))}
             </nav>
           </header>
 
-          {/* Main Content */}
+          {/* Main content */}
           <div className="flex-1 flex flex-col pt-24 pb-24 animate-wabi-in">
             {children}
           </div>
 
-          {/* Global Sticky Footer — barely there */}
-          <footer className="fixed bottom-0 left-0 right-0 py-4 px-8 flex justify-between items-center text-xs text-muted-foreground font-mono bg-background/95 border-t border-border/20 z-50 opacity-50 hover:opacity-80 transition-opacity duration-500">
-            <div>&copy; 2025 Ronald Mat</div>
+          {/* ── Global Footer — barely there ── */}
+          <footer className="fixed bottom-0 left-0 right-0 py-4 px-8 flex justify-between items-center z-50 bg-background/95 border-t border-border/20">
+            <span className="font-mono text-[10px] text-muted-foreground opacity-30 tracking-widest">
+              &copy; 2025 Ronald Mat
+            </span>
             <div className="flex gap-6">
-              <Link href="https://github.com" className="tracking-wider uppercase hover:text-foreground transition-colors duration-500">
-                GitHub
-              </Link>
-              <Link href="https://twitter.com" className="tracking-wider uppercase hover:text-foreground transition-colors duration-500">
-                Twitter
-              </Link>
+              {[
+                { label: "GitHub",  href: "https://github.com" },
+                { label: "Twitter", href: "https://twitter.com" },
+              ].map(({ label, href }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground opacity-30 hover:opacity-70 transition-opacity duration-500"
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
           </footer>
         </ThemeProvider>
